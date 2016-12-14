@@ -13,7 +13,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -27,26 +30,33 @@ import javafx.util.converter.NumberStringConverter;
 public class Start extends Application {
 
 	private IntegerProperty counter = new SimpleIntegerProperty(0);
-
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-		ImageView icon = new ImageView();
+		primaryStage.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
+			primaryStage.setX(event.getScreenX() - (primaryStage.getWidth() / 2));
+			primaryStage.setY(event.getScreenY() - (primaryStage.getHeight() / 2));
+		});
 
+
+		ImageView icon = new ImageView();
+		
 		Text text = new Text("TestText");
 		text.setFont(new Font(40));
 		text.setFill(Color.RED);
 		text.textProperty().bindBidirectional(counter, new NumberStringConverter());
-
+		
 		VBox box = new VBox();
 		box.setAlignment(Pos.TOP_CENTER);
+		box.setBackground(new Background(new BackgroundFill(new Color(1, 1, 1, 0.1),null,null)));
 		box.getChildren().add(icon);
 		box.getChildren().add(text);
 
 		Scene scene = new Scene(box, 100, 150);
 		scene.setFill(null);
-		
+
 		scene.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
 			if (event.getCode() == KeyCode.SPACE) {
 				counter.set(counter.get() + 1);
@@ -60,7 +70,7 @@ public class Start extends Application {
 			if (event.getCode() == KeyCode.R && event.isControlDown()) {
 				counter.set(0);
 			}
-			
+
 			if (event.getCode() == KeyCode.X && event.isControlDown()) {
 				primaryStage.close();
 			}
@@ -82,7 +92,7 @@ public class Start extends Application {
 				}
 			}
 		});
-		
+
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
