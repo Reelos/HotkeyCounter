@@ -44,7 +44,7 @@ public class Start extends Application {
 		box.getChildren().add(icon);
 		box.getChildren().add(text);
 
-		Scene scene = new Scene(box, 200, 300);
+		Scene scene = new Scene(box, 100, 150);
 		scene.setFill(null);
 		
 		scene.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
@@ -60,6 +60,10 @@ public class Start extends Application {
 			if (event.getCode() == KeyCode.R && event.isControlDown()) {
 				counter.set(0);
 			}
+			
+			if (event.getCode() == KeyCode.X && event.isControlDown()) {
+				primaryStage.close();
+			}
 
 			if (event.getCode() == KeyCode.P && event.isControlDown()) {
 				FileChooser dia = new FileChooser();
@@ -70,7 +74,7 @@ public class Start extends Application {
 				if (file != null) {
 					Image image = null;
 					try {
-						image = new Image(new FileInputStream(file), 200, 200, true, false);
+						image = new Image(new FileInputStream(file), 100, 100, true, false);
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
