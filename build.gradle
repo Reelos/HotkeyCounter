@@ -1,0 +1,17 @@
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+
+version = '1.0'
+mainClassName = "de.reelos.hkc.Start"
+
+jar {
+	manifest {
+		attributes(
+			'Implementation-Title': name,
+			'Implementation-Version': version,
+			'Main-Class': mainClassName
+		)
+	}
+}
