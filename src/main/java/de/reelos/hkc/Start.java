@@ -3,12 +3,14 @@ package de.reelos.hkc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -16,7 +18,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -89,6 +90,20 @@ public class Start extends Application {
 						e.printStackTrace();
 					}
 					icon.setImage(image);
+				}
+			}
+			
+			if (event.getCode() == KeyCode.S && event.isControlDown()) {
+				TextInputDialog tid = new TextInputDialog();
+				tid.setTitle("Set Startnumber");
+				tid.setHeaderText(null);
+				tid.setContentText("Please Insert Startnumber:");
+				Optional<String> result = tid.showAndWait();
+				
+				if(result.isPresent()) {
+					if(result.get().matches("[0-9]*")) {
+						counter.set(Integer.valueOf(result.get()));
+					}
 				}
 			}
 		});
